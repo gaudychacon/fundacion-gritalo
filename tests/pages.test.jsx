@@ -13,6 +13,10 @@ test('video has no third-party request until explicit activation',()=>{
  const {container}=render(<VideoCard video={{titulo:'Video de prueba',descripcion:'Tema',youtubeId:'dQw4w9WgXcQ',thumbnail:'/missing.webp'}}/>);
  expect(container.querySelector('iframe')).toBeNull();fireEvent.click(screen.getByRole('button',{name:/Reproducir/}));expect(container.querySelector('iframe').src).toContain('youtube-nocookie.com/embed/dQw4w9WgXcQ');
 });
+test('local video renders a native player without third-party embeds',()=>{
+ const {container}=render(<VideoCard video={{titulo:'Video local',descripcion:'Tema',youtubeId:'',src:'/videos/prueba.mp4',thumbnail:'/missing.webp'}}/>);
+ expect(container.querySelector('video').getAttribute('src')).toBe('/videos/prueba.mp4');expect(container.querySelector('iframe')).toBeNull();
+});
 test.each(['1e0','1.0','01'])('invalid chapter %s cannot create duplicate progress',id=>{
  localStorage.clear();render(<MemoryRouter initialEntries={[`/6-9/historias/${id}`]}><App/></MemoryRouter>);
  expect(screen.getByRole('heading',{name:/encontramos/})).toBeTruthy();expect(readProgress('6-9').chapters).toEqual([]);
