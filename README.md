@@ -1,4 +1,4 @@
-# Aprendo a cuidarme
+# Yo Digo No
 
 A local-first educational React website in Spanish, with separate experiences for ages 6–9 and 10–15. The two supplied prevention workbooks were visually reviewed before writing the adaptations. No accounts, personal-data forms, analytics, advertising, or backend are included.
 
