@@ -1,7 +1,7 @@
 import { historias6a9 } from './historias6a9';
 import { historias10a15 } from './historias10a15';
 import { kidsActivities,teensActivities } from './activities';
-export const site = { name: 'Aprendo a cuidarme', tagline: 'Historias, juegos y actividades para aprender a cuidarnos y pedir ayuda cuando la necesitamos.' };
+export const site = { name: 'Yo Digo No', tagline: 'Historias, juegos y actividades para aprender a cuidarnos y pedir ayuda cuando la necesitamos.' };
 const commonLessons=[
  ['Mi cuerpo me pertenece','Tu cuerpo merece respeto. Puedes decidir sobre los abrazos y otros contactos. También debes respetar el cuerpo y los límites de las demás personas.'],
  ['Mi intimidad importa','Las partes del cuerpo que suele cubrir la ropa interior son privadas. Todo tu cuerpo merece respeto, no solo esas partes. Puedes preguntar y buscar ayuda si algo te preocupa.'],
