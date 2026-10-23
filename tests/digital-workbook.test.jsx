@@ -51,6 +51,33 @@ test('word search preserves the source grid and all four word paths',()=>{
  expect(WORD_GRID).toHaveLength(8);expect(WORD_GRID.every(row=>row.length===10)).toBe(true);
  for(const [word,path] of Object.entries(WORD_PATHS))expect(path.map(([r,c])=>WORD_GRID[r][c]).join('')).toBe(word==='ACTUAR'?'ACTUAA':word);
 });
+
+test('word search recognizes the printed ACTUAR diagonal and marks the selected cells',()=>{
+ render(<ActivityEngine activity={teensActivities[1]} onComplete={()=>{}}/>);
+ const cell=(r,c)=>screen.getByRole('button',{name:`Fila ${r+1}, columna ${c+1}: ${WORD_GRID[r][c]}`});
+ fireEvent.click(cell(5,4));fireEvent.click(cell(0,9));
+ expect(screen.getByRole('status').textContent).toBe('Encontraste ACTUAR.');
+ for(let i=0;i<6;i++)expect(cell(5-i,4+i).getAttribute('aria-pressed')).toBe('true');
+ expect(cell(6,8).getAttribute('aria-pressed')).toBe('false');
+});
+
+test('word search accepts the reverse diagonal, rejects invalid selections, and resets highlights',()=>{
+ render(<ActivityEngine activity={teensActivities[1]} onComplete={()=>{}}/>);
+ const cell=(r,c)=>screen.getByRole('button',{name:`Fila ${r+1}, columna ${c+1}: ${WORD_GRID[r][c]}`});
+ for(const end of [[0,8],[1,8],[5,4]]){
+  fireEvent.click(cell(5,4));fireEvent.click(cell(...end));
+  expect(screen.getByRole('status').textContent).toContain('Ese tramo no corresponde');
+  expect(cell(5,4).getAttribute('aria-pressed')).toBe('false');
+ }
+ fireEvent.click(cell(0,9));fireEvent.click(cell(5,4));
+ expect(screen.getByRole('status').textContent).toBe('Encontraste ACTUAR.');
+ expect(screen.getByText(/1 de 8 pasos listos/)).toBeTruthy();
+ for(let i=0;i<6;i++)expect(cell(5-i,4+i).getAttribute('aria-pressed')).toBe('true');
+ fireEvent.click(screen.getByRole('button',{name:'Reiniciar actividad'}));
+ expect(screen.getByRole('status').textContent).toBe('0 de 4 palabras encontradas');
+ for(let i=0;i<6;i++)expect(cell(5-i,4+i).getAttribute('aria-pressed')).toBe('false');
+ expect(screen.getByText(/ACTUAR se encuentra en diagonal/)).toBeTruthy();
+});
 test('original choices reject incorrect responses, allow correction, and reset',()=>{
  const done=vi.fn();render(<ActivityEngine activity={kidsActivities[0]} onComplete={done}/>);
  const fields=screen.getAllByRole('group',{name:/^Pregunta/});
