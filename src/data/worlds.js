@@ -1,18 +1,43 @@
-import { historias6a9 } from './historias6a9';
+﻿import { historias6a9 } from './historias6a9';
 import { historias10a15 } from './historias10a15';
-import { kidsActivities,teensActivities } from './activities';
-export const site = { name: 'Aprendo a cuidarme', tagline: 'Historias, juegos y actividades para aprender a cuidarnos y pedir ayuda cuando la necesitamos.' };
-const commonLessons=[
- ['Mi cuerpo me pertenece','Tu cuerpo merece respeto. Puedes decidir sobre los abrazos y otros contactos. También debes respetar el cuerpo y los límites de las demás personas.'],
- ['Mi intimidad importa','Las partes del cuerpo que suele cubrir la ropa interior son privadas. Todo tu cuerpo merece respeto, no solo esas partes. Puedes preguntar y buscar ayuda si algo te preocupa.'],
- ['Secretos y sorpresas','Una sorpresa agradable se comparte pronto. Un secreto que incluye miedo, amenazas, presión o daño se puede contar a una persona adulta segura.'],
- ['Puedo decir NO','Puedes decir NO y alejarte si es posible y seguro. Si te quedaste sin voz, quieto o no pudiste salir, no es tu culpa. Aun así puedes pedir ayuda.'],
- ['Personas de confianza','Una persona adulta segura escucha, cree, respeta tus límites y actúa para protegerte. No basta con que sea familiar o tenga una profesión determinada.'],
- ['Si tengo miedo','El corazón puede latir rápido, puedes sentir confusión o quedarte sin palabras. También puedes no notar ninguna señal. No necesitas demostrar miedo para pedir ayuda.'],
- ['Pedir ayuda','Puedes empezar diciendo: «Algo me preocupa y necesito ayuda». Si la primera persona no te escucha o no te ayuda, cuéntaselo a otra persona adulta segura.']
+import { kidsActivities,teensActivities,teensActivityIntroduction } from './activities';
+export const site = { name: 'Yo Digo NO', tagline: 'El Secreto de Shawi · El Secreto de Ferina y Fredo' };
+const song = [
+ 'ESCUCHEN ATENTOS ESTOS CONSEJOS\nQUE DEL PELIGRO TE PUEDEN SALVAR\nSON VARIAS COSAS MUY IMPORTANTES\nQUE SIEMPRE DEBES DE RECORDAR:',
+ 'EN EL MUNDO HAY GENTE BUENA\nEN LA QUE PUEDES CONFIAR,\nSON AQUELLOS QUE TE PROTEGEN\nY SIEMPRE TE DEFENDERÁN',
+ 'PERO DEBES TENER CUIDADO\nOTROS TE PUEDEN DAÑAR,\nESTO DEBES RESPONDER\nSI EN PELIGRO TÚ ESTÁS:',
+ 'CORO:\n¡NO, NO, NO! NO, NO ,NO!\nA QUIEN QUIERA LASTIMARME YO DIGO NO, NO ,NO!\nSI ME PIDEN GUARDAR SECRETOS: YO DIGO NO, NO, NO!\nAL ABUSO Y LA INJUSTICIA YO DIGO NO, NO ,NO!\nSI ALGUIEN QUIERE TOCAR MI CUERPO: YO DIGO NO, NO ,NO!\n¡NO, NO, NO!\n¡GRITO FUERTE: NO, NO, NO!',
+ 'SI ALGUIEN QUIERE HACERNOS DAÑO,\nLEVANTEMOS NUESTRA VOZ,\nPIDE AYUDA, GRITA FUERTE,\nEL ABUSO HAY QUE DENUNCIAR',
+ 'CORO',
+ 'QUIEN TE AMA, NO TE DAÑA\nQUIEN TE AMA, TE RESPETA\nQUIEN TE AMA, TE PROTEGE\nQUIEN TE AMA, NO TE MIENTE\n(repetir 2 veces)',
+ 'SI ALGUIEN QUIERE HACERNOS DAÑO,\nLEVANTEMOS NUESTRA VOZ,\nPIDE AYUDA, GRITA FUERTE,\nEL ABUSO HAY QUE DENUNCIAR',
+ 'CORO'
 ];
-const videos=(age)=>['Mi cuerpo','Secretos','Pedir ayuda'].map((tema,i)=>({id:i+1,titulo:['Mi cuerpo merece respeto','Sorpresas y secretos','No tengo que hacerlo a solas'][i],descripcion:['Una pausa para aprender sobre nuestros límites.','Aprendemos a reconocer lo que podemos contar.','Personas que escuchan, respetan y protegen.'][i],tema,youtubeId:'',thumbnail:`/images/${age}/video-${i+1}.webp`}));
+const videos=(age)=>['Mi cuerpo','Secretos','Pedir ayuda'].map((tema,i)=>({id:i+1,titulo:['Mi cuerpo merece respeto','Sorpresas y secretos','No tengo que hacerlo a solas'][i],descripcion:'Contenido complementario del sitio. Video pendiente; no forma parte del libro.',tema,youtubeId:'',thumbnail:`/books/${age}/cover.jpg`}));
 export const worlds={
- '6-9':{age:'6 a 9 años',label:'El mundo de Shawi',short:'Shawi',title:'¡Hola, pequeño explorador!',description:'Con Shawi, cada historia es una oportunidad para aprender a cuidarte.',stories:historias6a9,storyTitle:'El secreto de Shawi',activities:kidsActivities,lessons:commonLessons,videos:videos('6-9')},
- '10-15':{age:'10 a 15 años',label:'El mundo de Ferina y Fredo',short:'Ferina y Fredo',title:'Tu voz. Tus límites. Tu mundo.',description:'Descubre historias, cuestiona ideas y practica decisiones que te ayudan a cuidarte.',stories:historias10a15,storyTitle:'El secreto de Ferina y Fredo',activities:teensActivities,lessons:[...commonLessons.map(([title,text],i)=>[[ 'Límites personales','Mi cuerpo me pertenece','Presión, amenazas y secretos','Tomar decisiones seguras','Personas de confianza','Señales de alerta','Pedir ayuda'][i],text]),['Ante una situación peligrosa','Busca acercarte a un lugar seguro y a una persona adulta protectora, si puedes. No necesitas enfrentarte a quien te lastima. Si ya pasó, también puedes buscar apoyo.']],videos:videos('10-15')}
+ '6-9':{
+  age:'6 a 9 años',label:'El mundo de Shawi',short:'Shawi',title:'El Secreto de Shawi',
+  description:'A nuestro amigo Shawi le encanta levantarse temprano los días sábados; esos días, sus papás van a comprar al mercado y él debe levantarse a limpiar y arreglar su habitación.',
+  stories:historias6a9,storyTitle:'El Secreto de Shawi',activities:kidsActivities,
+  activityIntroduction:['AYUDA A SHAWI Y ALEDIS A SALIR DE ESTA SITUACIÓN:'],
+  lessons:[
+   ['Página 9','TUS PARTES PRIVADAS SON AQUELLAS QUE TU ROPA INTERIOR O ROPA DE BAÑO CUBREN, Y NO DEBES DEJAR QUE NINGUNA PERSONA LAS TOQUE”.'],
+   ['Página 7','¡Tenemos que pedir ayuda! ¿Alguien nos podrá ayudar y decir qué podemos hacer?']
+  ],
+  song:{title:'CANCIÓN ¡YO DIGO NO!',text:song,image:'/books/6-9/song.jpg',source:'PDF 8, página final sin numeración'},
+  videos:videos('6-9')
+ },
+ '10-15':{
+  age:'10 a 15 años',label:'El mundo de Ferina y Fredo',short:'Ferina y Fredo',title:'El Secreto de Ferina y Fredo',
+  description:'¡Hoy es el cumpleaños de Ferina!',
+  stories:historias10a15,storyTitle:'El Secreto de Ferina y Fredo',activities:teensActivities,
+  activityIntroduction:teensActivityIntroduction,
+  lessons:[
+   ['Página 7','Porque nadie tiene derecho a tocar tu cuerpo y hacerte daño.'],
+   ['Página 10','Me demuestra su cariño con respeto.'],
+   ['Página 12','Primero deben de buscar ayuda de alguien que esté más cerca y luego llaman a su mamá y se lo cuentan.']
+  ],
+  song:{title:'CANCIÓN ¡YO DIGO NO!',text:song,image:'/books/10-15/page-14.jpg',source:'PDF 9, página impresa 14'},
+  videos:videos('10-15')
+ }
 };

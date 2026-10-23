@@ -1,24 +1,148 @@
-const q=(prompt,options,answer,explanation)=>({prompt,options,answer,explanation});
-const yesNo=['Sí','No'];
-const traffic=['Verde · situación segura','Amarillo · necesito ayuda para decidir','Rojo · situación peligrosa'];
-const activity=(id,title,type,description,extra)=>({id,title,type,description,...extra});
-export const kidsActivities=[
- activity('si-o-no','¿Sí o no?','choice','Pequeñas preguntas. Grandes cuidados.',{questions:[q('¿Puedo contar un secreto que me da miedo?',yesNo,0,'Sí. Una persona adulta que te cuide puede ayudarte.'),q('¿Un regalo obliga a aceptar un contacto que no quiero?',yesNo,1,'No. Los regalos no compran permiso sobre tu cuerpo.'),q('¿Puedo pedir ayuda aunque no haya podido decir NO?',yesNo,0,'Siempre. No poder decir NO nunca hace que sea tu culpa.')]}),
- activity('semaforo','Semáforo de decisiones','classify','Detente, piensa y reconoce una situación.',{questions:[q('Alguien te pregunta si quieres un abrazo y acepta que no quieras.',traffic,0,'Respetar tu decisión es una forma de cuidarte.'),q('Una invitación te confunde y no sabes si es segura.',traffic,1,'Puedes detenerte y consultar a una persona adulta segura.'),q('Alguien amenaza con castigarte si cuentas que te hizo daño.',traffic,2,'Las amenazas son una señal de peligro. Busca ayuda adulta.')]}),
- activity('personas','Personas de confianza','select','La confianza se reconoce en las acciones.',{prompt:'Elige todas las acciones de una persona adulta que cuida.',options:['Lina escucha y respeta cuando dices NO.','Tomi pide guardar en secreto algo que te da miedo.','Nora te cree y busca protegerte.','Leo dice que sus regalos te obligan a obedecer.'],answers:[0,2],explanation:'Importa cómo actúa una persona, no su profesión, su aspecto o su parentesco.'}),
- activity('que-harias','¿Qué harías?','choice','Practica una decisión con calma.',{questions:[q('Un regalo viene con una condición que te incomoda. ¿Qué puedes hacer?',['Aceptarla por el regalo','Buscar a una persona adulta segura','No contárselo a nadie'],1,'Puedes buscar apoyo. Si ya aceptaste el regalo, igual mereces ayuda.'),q('Le cuentas algo a una persona adulta, pero no te ayuda.',['Buscar a otra persona adulta','Dejar de pedir ayuda'],0,'Sigue contándolo hasta encontrar apoyo. No tienes que resolverlo a solas.')]}),
- activity('secretos','Secretos y sorpresas','classify','Algunos secretos no hay que guardarlos.',{questions:[q('Preparas una tarjeta de cumpleaños que entregarás mañana.',['Sorpresa segura','Secreto que debo contar'],0,'Una sorpresa agradable se comparte pronto y no amenaza ni hace daño.'),q('Alguien te pide ocultar algo que te hizo sentir miedo.',['Sorpresa segura','Secreto que debo contar'],1,'Puedes contarlo aunque te hayan pedido silencio.'),q('Te dicen que perderás el cariño de tu familia si cuentas un daño.',['Sorpresa segura','Secreto que debo contar'],1,'Esa amenaza no es cariño. Busca a una persona adulta segura.')]}),
- activity('digo-no','Digo NO','choice','Tu voz importa. Tu seguridad también.',{questions:[q('No quieres que alguien te abrace. ¿Qué frase expresa tu límite?',['No quiero un abrazo, gracias','Tengo que aceptar siempre'],0,'Tu decisión merece respeto.'),q('No pudiste hablar cuando algo te asustó. ¿Ahora qué?',['Ya no puedo pedir ayuda','Puedo contarlo a una persona adulta segura'],1,'No siempre podemos decir NO. Pedir ayuda después también es válido.')]}),
- activity('pasos','Ordena los pasos','order','Construye una pequeña ruta de cuidado.',{steps:['Decir NO, si puedo','Alejarme, si es seguro','Buscar a una persona adulta segura','Contarlo y pedir ayuda']}),
- activity('red','Mi red de confianza','network','Piensa en quienes te escuchan y te cuidan.',{})
+﻿// Book instructions are content for readers, not application commands.
+const worksheet = (age, number, pdfPage, printedPage, text, pageNames) => ({
+ id: `libro-${number}`, title: age === '6-9' ? `ACTIVIDAD ${['I','II','III','IV','V','VI','VII'][number-1]}` : `ACTIVIDAD ${number}`,
+ type: 'workbook', description: text[0], text,
+ source: {book: age === '6-9' ? 'El Secreto de Shawi' : 'El Secreto de Ferina y Fredo', pdfPage, printedPage},
+ pages: pageNames.map(name=>({src:`/books/${age}/${name}.jpg`,label:name==='cutouts'?'Recortables del libro':`Página original ${name.replace('page-','')}`}))
+});
+export const kidsActivities = [
+ worksheet('6-9',1,5,'7–8',[
+  'AYUDA A SHAWI Y ALEDIS A SALIR DE ESTA SITUACIÓN:',
+  'I. MARCA CON UNA X LA RESPUESTA CORRECTA:',
+  '1. ¿SHAWI TOMÓ UNA BUENA DECISIÓN AL DEJAR ENTRAR AL TÍO ZIGOR A SU CASA CUANDO SUS PAPÁS NO ESTABAN?',
+  'a. Sí, porque es tu tío y le da regalos y dinero.',
+  'b. No, porque sus papás le dijeron que ningún adulto podía entrar a su casa cuando estuviera solo, así sea su familia.',
+  '2. ¿EL TÍO DE SHAWI Y ALEDIS ES UN MANIPULADOR?',
+  'a. No. Él es bueno porque les da dinero y regalos.',
+  'b. Sí, porque hace que Shawi y Aledis guarden secretos, les enseña a mentir a sus papás y les da regalos y dinero sin permiso de los papás y los manipula para que hagan lo que él quiere.',
+  '3. ¿EL TÍO DE SHAWI Y ALEDIS ES UN ABUSADOR SEXUAL Y UN EXPLOTADOR SEXUAL?',
+  'a. No. Él no hizo nada malo.',
+  'b. Sí, porque toca las partes privadas de sus sobrinos y les toma fotos desnudos y luego las manda a otros abusadores para que le den dinero.',
+  '4. ¿QUÉ DEBIERON DE HACER SHAWI Y ALEDIS CUANDO SU TÍO QUISO ENTRAR A SU CASA?',
+  'a. Dejarlo entrar para que no esté solito en la calle.',
+  'b. Decirle que NO podían hacerlo entrar porque sus papás no estaban.'
+ ],['page-7','page-8']),
+ worksheet('6-9',2,6,8,[
+  'II. DIBUJA UNA CARA',
+  'EN LAS DECISIONES PELIGROSAS Y UNA CARA',
+  'EN LAS BUENAS DECISIONES:'
+ ],['page-8']),
+ worksheet('6-9',3,6,9,[
+  'III. SHAWI Y ALEDIS NO SABEN CUÁLES SON SUS PARTES PRIVADAS. ENSÉÑALES CUÁLES SON Y AYÚDALOS A CUBRIRLAS PARA QUE NADIE PUEDA VERLAS:',
+  'PINTA Y RECORTA LAS ROPAS DE BAÑO DE ALEDIS Y SHAWI Y PÉGALAS CUBRIENDO SUS PARTES PRIVADAS:',
+  'SENOS', 'VAGINA', 'NALGAS', 'VULVA', 'TESTICULOS', 'PENE',
+  'TUS PARTES PRIVADAS SON AQUELLAS QUE TU ROPA INTERIOR O ROPA DE BAÑO CUBREN, Y NO DEBES DEJAR QUE NINGUNA PERSONA LAS TOQUE”.',
+  '“NADIE DEBE DE QUITARTE NI PEDIRTE QUE TE QUITES LA ROPA”.'
+ ],['page-9','cutouts']),
+ worksheet('6-9',4,7,10,[
+  'AYUDA A SHAWI Y ALEDIS A IDENTIFICAR A LOS ABUSADORES Y A RECONOCER A LAS PERSONAS EN QUIÉNES CONFIAR:',
+  'IV. PINTA A LAS PERSONAS EN LAS QUE ELLOS PUEDEN CONFIAR Y MARCA CON UNA X A LOS MANIPULADORES, ABUSADORES Y EXPLOTADORES SEXUALES:',
+  'Eres hermosa', 'Ven conmigo…', '¡NO!', '¡Maestra te queremos!', '¡Hijo yo te creo!', '¡Hija, yo te defenderé!'
+ ],['page-10']),
+ worksheet('6-9',5,7,11,[
+  'V. COLOREA LOS DIBUJOS Y UNE CON UNA LÍNEA LAS PREGUNTAS CON LAS RESPUESTAS CORRECTAS:',
+  '¿SI ALGUIEN QUIERE QUE LES MIENTA A MIS PAPÁS?',
+  '¿SI ALGUIEN ME PIDE QUE GUARDE UN SECRETO?',
+  'DIGO: NO', 'DIGO: SI',
+  '¿SI ALGUIEN QUIERE DARME REGALOS O DINERO SIN QUE MIS PAPÁS SEPAN?',
+  '¿SI ALGUIEN QUIERE VER O TOCAR MIS PARTES PRIVADAS?',
+  '¿CORRO A CONTARLE A MI PERSONA DE CONFIANZA SI ALGUIEN ME PIDE CUALQUIERA DE ESTAS COSAS ?'
+ ],['page-11']),
+ worksheet('6-9',6,8,12,[
+  'A SHAWI Y ALEDIS SE LES HA OLVIDADO ALGO MUY IMPORTANTE:',
+  'VI. LEE CADA PALABRA Y ARMA LA FRASE CORRECTA:',
+  'TESORO', 'DAÑARLO', 'DIOS', 'CUERPO', 'VALIOSO',
+  '“MI __________ ES UN __________ MUY __________ PARA __________ Y NADIE DEBE DE __________”.'
+ ],['page-12']),
+ worksheet('6-9',7,8,12,[
+  'POR ÚLTIMO, ENSÉÑALES A SHAWI, ALEDIS Y A SUS PAPÁS A DÓNDE DEBEN DE IR PARA DENUNCIAR AL TÍO ABUSADOR Y EXPLOTADOR SEXUAL.',
+  'VII. RECORTA LAS CASITAS Y PÉGALAS DONDE CORRESPONDEN.',
+  'IGLESIA', 'COLEGIO', 'POLICIA', 'HOSPITAL', 'FISCALIA'
+ ],['page-12','cutouts'])
 ];
-export const teensActivities=[
- activity('analiza','Analiza la situación','choice','Mira más allá de lo que alguien promete.',{questions:[q('Una persona conocida ofrece un regalo a cambio de guardar un secreto que incomoda.',['Por ser conocida, es seguro','Puedo buscar apoyo sin aceptar la condición','Debo demostrar confianza'],1,'La confianza no se demuestra aceptando presión. Los regalos no generan una deuda.'),q('Alguien vulnera tu privacidad y lo presenta como cariño.',['El cariño justifica todo','Mi privacidad merece respeto; puedo pedir ayuda'],1,'Una relación cercana no da permiso para invadir tu intimidad.')]}),
- activity('alertas','Señales de alerta','select','Reconoce comportamientos, no apariencias.',{prompt:'Selecciona los comportamientos que son señales de alerta.',options:['Acepta un límite sin insistir.','Amenaza para que no cuentes algo.','Exige que estés a solas y oculta el motivo.','Te escucha sin culparte.','Usa regalos para pedir algo que te incomoda.'],answers:[1,2,4],explanation:'Las amenazas, el aislamiento y la presión merecen atención. Busca apoyo aunque no sientas una señal física.'}),
- activity('decisiones','¿Qué harías tú?','choice','Explora decisiones que te acercan al apoyo.',{questions:[q('Un contacto en internet pide imágenes privadas y exige secreto.',['Enviar una para que no insista','Dejar de responder y pedir ayuda a una persona adulta segura','Negociar un regalo'],1,'No tienes que enviar imágenes. Si ya enviaste algo, no es tu culpa que te amenacen: pide ayuda.'),q('Un amigo cuenta que alguien le hace daño.',['Prometer que nadie se enterará','Escucharlo y acompañarlo a buscar apoyo adulto','Enfrentar a esa persona sin ayuda'],1,'Puedes acompañar sin intentar resolverlo solo. Un secreto sobre daño necesita ayuda.')]}),
- activity('mitos','Mitos y realidades','choice','Cuestiona ideas que no ayudan a cuidarte.',{questions:[q('Si me quedé paralizado, significa que acepté.',['Verdadero','Falso'],1,'Quedarse paralizado puede pasar con el miedo. No significa aceptar.'),q('Puedo pedir ayuda aunque haya pasado tiempo.',['Verdadero','Falso'],0,'Nunca es tarde para pedir ayuda.'),q('Un familiar siempre es seguro, haga lo que haga.',['Verdadero','Falso'],1,'La confianza depende de los actos y del respeto a tus límites.')]}),
- activity('ruta','Ruta de ayuda','order','Practica una ruta, no una obligación.',{steps:['Reconocer que necesito apoyo','Acercarme a un lugar seguro, si puedo','Hablar con una persona adulta protectora','Buscar a otra si no recibo ayuda']}),
- activity('limites','Límites personales','classify','Reconoce respeto, incomodidad y peligro.',{questions:[q('Preguntan antes de abrazarte y aceptan tu respuesta.',['Respetuoso','Incómodo','Peligroso'],0,'Pedir permiso y aceptar un NO respeta tus límites.'),q('Una broma sobre ti te molesta y quieres que pare.',['Respetuoso','Incómodo','Peligroso'],1,'Tu incomodidad importa. Puedes poner un límite y buscar apoyo.'),q('Alguien amenaza con hacerte daño si cuentas una invasión de tu intimidad.',['Respetuoso','Incómodo','Peligroso'],2,'Una amenaza es una señal de peligro. No tienes que confrontar a la persona para pedir ayuda.')]}),
- activity('manipulacion','Identifica la manipulación','select','El cuidado no exige obediencia a cambio.',{prompt:'Marca las frases que usan presión o manipulación.',options:['Si me quisieras, guardarías este secreto.','Puedes decir que no; lo respeto.','Te di un regalo, ahora me debes esto.','Te ayudo a hablar con alguien que te cuide.','Nadie te va a creer si lo cuentas.'],answers:[0,2,4],explanation:'Culpa, regalos condicionados y amenazas no son cuidado. El daño nunca es responsabilidad de quien lo recibe.'}),
- activity('red','Mi red de apoyo','network','Reflexiona sin compartir información personal.',{})
+export const teensActivities = [
+ worksheet('10-15',1,5,7,[
+  'CONTESTA SÍ O NO Y MARCA CON UNA X LA RESPUESTA CORRECTA:',
+  '1. ¿LO QUE LES SUCEDE A FERINA Y A FREDO ES UNA SITUACIÓN PELIGROSA? _____. ¿PORQUÉ?',
+  'a. Porque es normal que toquen tus partes privadas.',
+  'b. Porque nadie tiene derecho a tocar tu cuerpo y hacerte daño.',
+  '2. ¿ESTUVO BIEN QUE EL PADRASTRO ESPÍE A FERINA MIENTRAS ELLA SE BAÑABA? _____. ¿PORQUÉ?',
+  'a. Porque es su familia y entre la familia sí podemos vernos desnudos.',
+  'b. Porque bañarse es algo PRIVADO y nadie debe de ver tus partes privadas.',
+  '3. ¿QUÉ CREES QUE DEBIÓ DE HACER FERINA CUANDO VIO A SU PADRASTRO ESPIÁNDOLA MIENTRAS SE BAÑABA?',
+  'a. Quedarse callada y guardar el secreto.',
+  'b. Decirle que se vaya y contárselo a un adulto de confianza para que la ayude.',
+  '4. ¿EL PADRASTRO DE FERINA Y FREDO ES UN ABUSADOR Y EXPLOTADOR SEXUAL?',
+  'a. No. Él es bueno porque les da comida y casa y por eso puede hacer lo que quiere.',
+  'b. Sí, porque toca sus partes privadas y hace que el vecino también los toque a cambio de dinero.',
+  'ENCUENTRA LAS PALABRAS Y COMPLETA LA FRASE:',
+  'TUS PARTES __________ SON TODO LO QUE TU __________ DE __________ CUBRE Y SOLO TE PERTENECEN A TÍ Y NADIE DEBE DE __________ O TOCARLAS. TÚ __________ PUEDES NI DEBES DE __________ NI VER LAS PARTES PRIVADAS DE NADIE.',
+  'TOCAR', 'NADIE', 'PRIVADAS', 'BAÑO', 'VERLAS', 'ROPA', 'TAMPOCO'
+ ],['page-7']),
+ worksheet('10-15',2,6,8,[
+  'ENCUENTRA LAS PALABRAS CORRECTAS, ENCIÉRRALAS Y COMPLETA LA FRASE:',
+  '1. Antes de tomar una decisión debemos de: __________ en las consecuencias y luego __________ y __________. Así evitaremos las situaciones __________.',
+  'DECIDIR', 'PENSAR', 'PELIGROSAS', 'ACTUAR'
+ ],['page-8']),
+ worksheet('10-15',3,6,9,[
+  'LEE LOS CARTELES Y ENCIERRA CON UN CÍRCULO CADA PARTE DEL CUERPO QUE TE AVISA CUANDO ESTÁS EN PELIGRO.',
+  'SIENTES GANAS DE LLORAR.', 'NO PUEDES HABLAR.', 'TU CORAZÓN SE AGITA.', 'NO PUEDES MOVER LOS PIES.',
+  'LAS PIERNAS TE TIEMBLAN.', 'TE DUELE EL ESTÓMAGO', 'TUS MANOS Y CARA SUDAN.', 'TU CARA SE PONE ROJA.'
+ ],['page-9']),
+ worksheet('10-15',4,7,10,[
+  'MARCA CON UNA X LAS ACCIONES QUE CORRESPONDEN A CADA PERSONA:',
+  'PERSONAS', 'PERSONAS EN LAS QUE PUEDO CONFIAR', 'ABUSADORES Y EXPLOTADORES SEXUALES', 'ACCIONES',
+  'Me pide que guarde secretos.', 'Me demuestra su cariño con respeto.',
+  'Me coquetea y me dice que le gusto cuando estamos a solas.', 'Me da buenos consejos.', 'Me hace mentir.',
+  'Me protege y me defiende de quienes quieren dañarme.',
+  'Siempre quiere llevarme a lugares lejanos para que estemos solos.',
+  'Toca mi cuerpo y mis partes privadas.', 'Me enseña que soy importante y valioso para Dios.',
+  'Me dice que si no hago lo que él quiere, le hará daño a mi familia.',
+  'Me da regalos y dinero para que no cuente las cosas malas que me hace.',
+  'Me grita, insulta y me pega para que haga lo que él quiere.',
+  'COLOCA EN CADA LÍNEA A 3 PERSONAS EN LAS QUE PUEDES CONFIAR Y TE DEFENDERÁN:'
+ ],['page-10']),
+ worksheet('10-15',5,7,11,[
+  'UNE CON UNA LÍNEA LA IMAGEN A LA RESPUESTA QUE TÚ DARÍAS Y PÍNTALAS:',
+  '¡Puedo hacer que ganes mucho dinero! ¡Me conoces, ven conmigo!',
+  'Eres Linda, ¡Quiero Conocerte!',
+  '¡NO QUIERO QUE ME TOQUES!', 'ESTÁ BIEN', '¡NO HAGAS ESO!', '¡NO ME INTERESA, GRACIAS!', 'ME QUEDO CALLADO', '¡NO HABLO CON EXTRAÑOS!'
+ ],['page-11']),
+ worksheet('10-15',6,8,12,[
+  'CONTESTA SÍ O NO Y MARCA CON UNA X LA MEJOR DECISIÓN QUE PUEDEN TOMAR:',
+  'RECUERDA: LA MAMÁ ESTÁ DE VIAJE Y FERINA Y FREDO NECESITAN AYUDA AHORITA.',
+  'PIENSA: ¿Puede ayudarlos la mamá ahorita? SÍ ____ NO ____', 'DECIDE:',
+  'a. Primero deben de buscar ayuda de alguien que esté más cerca y luego llaman a su mamá y se lo cuentan.',
+  'b. No le dicen nada a nadie y esperan a que llegue su mamá para contárselo.',
+  'RECUERDA: LA PROFESORA ESTÁ PREOCUPADA POR ELLOS Y QUIERE PROTEGERLOS.',
+  'PIENSA: ¿Puede ayudarlos la profesora ahorita? SÍ ____ NO ____', 'DECIDE:',
+  'a. Se lo cuentan a la profesora pues ella los quiere, los respeta y puede protegerlos ya que está cerca a ellos.',
+  'b. No le dicen nada a nadie y esperan a que llegue su mamá para contárselo.',
+  'RECUERDA: SUS AMIGOS SON NIÑOS, COMO ELLOS.',
+  'PIENSA: ¿Pueden ayudarlos sus amigos en esto? SÍ ____ NO ____', 'DECIDE:',
+  'a. Se lo cuentan a sus amigos y juntos esperan hasta pensar qué hacer.',
+  'b. Buscan a otra persona adulta que los pueda ayudar.',
+  'RECUERDA: NO EXISTEN LOS SECRETOS BUENOS. LOS SECRETOS PUEDEN SER PELIGROSOS.',
+  'PIENSA: ¿Es bueno tener secretos con las personas? SÍ ____ NO ____', 'DECIDE:',
+  'a. Guardan el secreto para que su padrastro no se vaya a la cárcel.',
+  'b. Se lo cuentan a su profesora y juntos denuncian al padrastro por abusador y explotador sexual.'
+ ],['page-12']),
+ worksheet('10-15',7,8,13,[
+  'LEE CADA PALABRA Y ARMA LA FRASE CORRECTA:',
+  'TESORO', 'DAÑARLO', 'DIOS', 'VALIOSO', 'CUERPO',
+  '“MI __________ ES UN __________ MUY __________ PARA __________ Y NADIE DEBE DE __________”.',
+  'POR ÚLTIMO, ¿A DÓNDE DEBEN IR FERINA, FREDO Y SU PROFESORA PARA DENUNCIAR A SU PADRASTRO ABUSADOR Y AL VECINO EXPLOTADOR?',
+  'RECORTA LAS CASITAS DE LA ÚLTIMA HOJA DEL CUENTO Y PÉGALAS DONDE CORRESPONDEN:',
+  'HOSPITAL', 'POLICIA', 'FISCALIA', 'IGLESIA', 'COLEGIO', 'META',
+  '¡¡¡FELICIDADES!!! CON LO APRENDIDO EN EL TALLER Y CON TUS GANAS DE AYUDAR HAS SALVADO DEL PELIGRO A FERINA Y A FREDO. AHORA ELLOS SABEN QUE PUEDEN ¡DECIR NO! Y DEFENDERSE DEL ABUSO, LA TRATA Y LA EXPLOTACIÓN SEXUAL.'
+ ],['page-13','page-15'])
+];
+export const teensActivityIntroduction = [
+ 'AYUDA A FERINA Y A FREDO A SALIR DE ESTA DIFÍCIL Y PELIGROSA SITUACIÓN. RESUELVE ESTAS ACTIVIDADES Y RECUERDA LO APRENDIDO EN LOS TALLERES.',
+ 'SIGUE ESTAS INSTRUCCIONES:',
+ '1. RECORTA LAS FIGURAS DE FERINA Y FREDO QUE SE ENCUENTRAN EN LA ÚLTIMA PÁGINA DEL CUENTO.',
+ '2. FORMA UN EQUIPO DE TRABAJO CON TUS COMPAÑEROS DE CLASE.',
+ '3. CUANDO TU GRUPO TERMINE UNA ACTIVIDAD, CADA UNO PEGARÁ EN SU CUENTO LAS FIGURAS DE FERINA Y FREDO EN EL CASILLERO QUE DICE: “AVANZA A LA SIGUIENTE ACTIVIDAD” Y PODRÁN AVANZAR.',
+ '4. SI TU EQUIPO LOGRA RESOLVER TODAS LAS ACTIVIDADES Y AYUDAR A NUESTROS AMIGOS A DENUNCIAR AL ABUSADOR Y EXPLOTADOR SEXUAL HABRÁN GANADO EL JUEGO Y SALVADO A FERINA Y A FREDO!!!',
+ '¿FORMASTE TU EQUIPO DE TRABAJO? ¿LISTOS? ...UNO.. DOS ..TRES... ¡¡¡EMPECEMOS!!!'
 ];

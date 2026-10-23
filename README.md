@@ -1,6 +1,6 @@
-# Aprendo a cuidarme
+# Yo Digo NO
 
-A local-first educational React website in Spanish, with separate experiences for ages 6–9 and 10–15. The two supplied prevention workbooks were visually reviewed before writing the adaptations. No accounts, personal-data forms, analytics, advertising, or backend are included.
+A local-first educational React website in Spanish, with separate experiences for ages 6–9 and 10–15. The supplied prevention workbooks now provide the original story text, seven worksheets per age, and scanned artwork. No accounts, personal-data forms, analytics, advertising, or backend are included. See [book alignment](docs/book-alignment.md) and [image inventory](docs/book-image-inventory.md).
 
 ## Run locally
 
@@ -24,9 +24,9 @@ npm run preview  # preview the production build
 | Change | File |
 | --- | --- |
 | Site name, world descriptions, learning cards, videos | `src/data/worlds.js` |
-| Shawi's six adapted chapters | `src/data/historias6a9.js` |
-| Ferina and Fredo's six adapted chapters | `src/data/historias10a15.js` |
-| All sixteen activities and their explanations | `src/data/activities.js` |
+| Shawi's seven original story pages | `src/data/historias6a9.js` |
+| Ferina and Fredo's six original story pages | `src/data/historias10a15.js` |
+| Fourteen original worksheets and source references | `src/data/activities.js` |
 | Verified regional help resources | `src/data/recursosAyuda.js` |
 | Palette, typography, responsive layouts | `src/styles/main.css` |
 
@@ -34,21 +34,22 @@ The `site.name` configuration updates the visible branding and browser title. Th
 
 ### Images
 
-Place final illustrations in `public/images/`. Missing images render attractive labelled placeholders with the expected path; there are no remote image dependencies.
+Original book assets live in `public/books/`; there are no remote image dependencies. The old `public/images/` directories are unused legacy placeholders. Original pages can be opened at full resolution from the reader and worksheets.
 
 ```text
-public/images/
-  hero-principal.webp
-  home/
+public/books/
   6-9/
-    personajes/portada.webp
-    historias/capitulo-01.webp  # through capitulo-06.webp
-    actividades/
-    video-1.webp              # through video-3.webp
-  10-15/                      # same structure
+    cover.jpg
+    cutouts.jpg
+    page-1.jpg              # through page-12.jpg
+    song.jpg
+  10-15/
+    cover.jpg
+    title.jpg
+    page-1.jpg              # through page-15.jpg
 ```
 
-Use clothed, non-graphic illustrations appropriate to each story. The illustrations are intentionally pending; source PDF scans are not shipped in the application.
+The 32 JPEGs are rendered directly from the supplied PDFs, not redrawn. Review the original sensitive scenes, anatomical diagram, reproduction rights and pedagogical suitability before public release. See `scripts/export-book-pages.py` to regenerate them.
 
 ### Videos
 
@@ -56,14 +57,16 @@ Each world in `src/data/worlds.js` contains records with `id`, `titulo`, `descri
 
 ### Add an activity
 
-Add an object with a unique `id`, `title`, `description`, and `type` to the relevant array in `activities.js`:
+Original worksheets use `type: 'workbook'`, literal `text`, `source` metadata and `pages` image references. All fourteen can be completed in the browser. `src/data/workbookPlans.js` maps each source task to controls in `DigitalWorkbook.jsx`: original choices, face stamps, painting, cutouts, connections, phrase slots, body circles and a word search. See [interactive workbook details](docs/interactive-workbooks.md). Do not replace the original exercises with invented quizzes.
+
+For separately labeled supplemental activities, the engine still supports:
 
 - `choice` / `classify`: `questions` containing `prompt`, `options`, zero-based `answer`, and `explanation`.
 - `select`: `prompt`, `options`, zero-based `answers`, and `explanation`.
 - `order`: a correctly ordered `steps` array; the component initially reverses it.
 - `network`: private reflection using adult-role cards, never names or free text.
 
-The list and detail route are generated automatically. Add behavioral tests when introducing a new interaction type. Activities use accessible buttons rather than drag-only interaction and offer retry without penalties or rankings.
+The list and detail route are generated automatically. Add behavioral tests when introducing a new interaction type. Do not collect worksheet answers or personal names.
 
 ## Project map
 
@@ -87,9 +90,9 @@ Both `/6-9` and `/10-15` expose `/historias`, `/historias/:capitulo`, `/videos`,
 
 ## Safety and local progress
 
-The only persisted values are chapter IDs and completed activity IDs, namespaced under `aprendo-cuidarme:v1` in localStorage. Support-network choices are ephemeral and never persisted. Reset affects only this application's key, not other browser data. Learning remains available if storage is blocked or corrupted; persistence is best-effort.
+The only persisted values are visited page IDs and completed activity IDs, namespaced under `yo-digo-no:v3-interactive-books` in localStorage. Visited chapters migrate from the previous book edition, but reviewed worksheets do not count as completed games. Reset removes both book-edition keys, not unrelated browser data. Answers and drawings remain in React state only and are discarded when leaving the activity. Learning remains available if storage is blocked or corrupted; persistence is best-effort.
 
-Stories are gentle adaptations, not verbatim transcripts. They preserve the original characters and open help-seeking endings while correcting victim-blaming language. **No es tu culpa** and help-seeking after freezing or delayed disclosure are explicit. There is no invented rescue, verified contact number, or institutional service claim. Review `docs/source-analysis.md` before changing sensitive copy. Regional resources are intentionally empty until independently verified. The product is educational, not an emergency service.
+Stories are manual transcriptions of the original wording, including dialogue and faith references. Original page images provide a direct fidelity reference. Editorial **No es tu culpa** guidance is labeled separately; it is not inserted into quotations. Navigation, safeguarding guidance and video placeholders are website copy. Regional resources remain empty until independently verified. The product is educational, not an emergency service. Review `docs/book-alignment.md` before changing sensitive copy; `docs/source-analysis.md` records the historical adaptation rationale.
 
 ## Deploy later to Vercel
 

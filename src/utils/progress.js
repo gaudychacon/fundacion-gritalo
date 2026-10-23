@@ -1,9 +1,13 @@
-export const PROGRESS_KEY = 'aprendo-cuidarme:v1';
+// Reviewing a paper worksheet does not complete the new interactive activity.
+export const PROGRESS_KEY = 'yo-digo-no:v3-interactive-books';
+const PREVIOUS_KEY = 'aprendo-cuidarme:v2-books';
 const empty = () => ({ chapters: [], activities: [] });
 const store = (storage) => storage ?? globalThis.localStorage;
 export function readProgress(world, storage) {
   try {
-    const value = JSON.parse(store(storage).getItem(PROGRESS_KEY) || '{}')[world];
+    const current = store(storage).getItem(PROGRESS_KEY);
+    const previous = !current ? JSON.parse(store(storage).getItem(PREVIOUS_KEY) || '{}')[world] : null;
+    const value = current ? JSON.parse(current)[world] : { chapters: previous?.chapters, activities: [] };
     return { chapters: Array.isArray(value?.chapters) ? value.chapters.filter(x=>typeof x==='string') : [], activities: Array.isArray(value?.activities) ? value.activities.filter(x=>typeof x==='string') : [] };
   } catch { return empty(); }
 }
@@ -15,4 +19,4 @@ export function markProgress(world, kind, id, storage) {
     store(storage).setItem(PROGRESS_KEY,JSON.stringify(data));
   } catch { /* Learning remains available when storage is blocked. */ }
 }
-export function resetProgress(storage) { try { store(storage).removeItem(PROGRESS_KEY); } catch { /* Storage is optional. */ } }
+export function resetProgress(storage) { try { store(storage).removeItem(PROGRESS_KEY); store(storage).removeItem(PREVIOUS_KEY); } catch { /* Storage is optional. */ } }

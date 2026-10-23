@@ -23,24 +23,9 @@ test('selection explains the lesson before finishing',()=>{
  fireEvent.click(screen.getByRole('button',{name:'Escucha'}));fireEvent.click(screen.getByRole('button',{name:/Comprobar/}));
  expect(screen.getByRole('status').textContent).toContain('Importan las acciones');expect(done).not.toHaveBeenCalled();fireEvent.click(screen.getByRole('button',{name:'Terminar actividad'}));expect(done).toHaveBeenCalledOnce();
 });
-test.each([...kidsActivities,...teensActivities].map((a,i)=>[`${i+1}. ${a.title}`,a]))('%s can be completed using accessible controls',(_,activity)=>{
+test.each([...kidsActivities,...teensActivities].map((a,i)=>[`${i+1}. ${a.title}`,a]))('%s requires completing the digital tasks',(_,activity)=>{
  const done=vi.fn();render(<ActivityEngine activity={activity} onComplete={done}/>);
- if(activity.type==='network'){
-  fireEvent.click(screen.getByRole('checkbox'));fireEvent.click(screen.getByRole('button',{name:'Guardar solo mi avance'}));
- }else if(activity.type==='order'){
-  for(const step of activity.steps)fireEvent.click(screen.getByRole('button',{name:step}));
-  fireEvent.click(screen.getByRole('button',{name:'Comprobar orden'}));
- }else if(activity.type==='select'){
-  for(const i of activity.answers)fireEvent.click(screen.getByRole('button',{name:activity.options[i]}));
-  fireEvent.click(screen.getByRole('button',{name:/Comprobar mis elecciones/}));
-  expect(screen.getByRole('status').textContent).toContain(activity.explanation);
-  fireEvent.click(screen.getByRole('button',{name:'Terminar actividad'}));
- }else{
-  for(const question of activity.questions){
-   fireEvent.click(screen.getByRole('button',{name:question.options[question.answer]}));
-   expect(screen.getByRole('status').textContent).toContain(question.explanation);
-   fireEvent.click(screen.getByRole('button',{name:/Siguiente situación|Terminar actividad/}));
-  }
- }
- expect(done).toHaveBeenCalledOnce();
+ expect(screen.getByText('Texto del libro')).toBeTruthy();
+ expect(screen.getByRole('button',{name:'Terminar actividad'}).disabled).toBe(true);
+ expect(done).not.toHaveBeenCalled();
 });

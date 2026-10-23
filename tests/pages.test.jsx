@@ -21,5 +21,5 @@ test('video filters and lesson disclosure expose relevant content',()=>{
  const {unmount}=render(<MemoryRouter initialEntries={['/6-9/videos']}><App/></MemoryRouter>);
  fireEvent.click(screen.getByRole('button',{name:'Secretos'}));expect(screen.getByRole('heading',{name:'Sorpresas y secretos'})).toBeTruthy();expect(screen.queryByRole('heading',{name:'Mi cuerpo merece respeto'})).toBeNull();
  unmount();render(<MemoryRouter initialEntries={['/10-15/aprende']}><App/></MemoryRouter>);
- const summary=screen.getByText('Límites personales').closest('summary');fireEvent.click(summary);expect(summary.parentElement.open).toBe(true);
+ const summary=screen.getByText('Página 7').closest('summary');fireEvent.click(summary);expect(summary.parentElement.open).toBe(true);
 });

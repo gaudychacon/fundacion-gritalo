@@ -13,3 +13,10 @@ test('reset removes only our application data', () => {
   localStorage.setItem('unrelated','keep'); markProgress('6-9','chapters','1'); resetProgress();
   expect(readProgress('6-9').chapters).toEqual([]); expect(localStorage.getItem('unrelated')).toBe('keep');
 });
+test('review-only worksheet progress does not complete digital games, but visited chapters survive',()=>{
+ localStorage.setItem('aprendo-cuidarme:v2-books',JSON.stringify({'6-9':{chapters:['1'],activities:['libro-1']}}));
+ expect(readProgress('6-9')).toEqual({chapters:['1'],activities:[]});
+ markProgress('6-9','activities','libro-2');
+ expect(readProgress('6-9')).toEqual({chapters:['1'],activities:['libro-2']});
+ resetProgress();expect(readProgress('6-9')).toEqual({chapters:[],activities:[]});
+});

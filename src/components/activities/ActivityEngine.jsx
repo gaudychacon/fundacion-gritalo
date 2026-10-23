@@ -1,3 +1,4 @@
+import { DigitalWorkbook } from './DigitalWorkbook';
 import { useState } from 'react';
 import { Check, ArrowRight, RotateCcw, Heart, ShieldCheck } from 'lucide-react';
 
@@ -21,6 +22,7 @@ function TrustCircle({onComplete}) {
  return <><p className="eyebrow">Un momento para pensar</p><h2>¿Quién escucha y respeta tus límites?</h2><p>Piensa en una persona adulta que te crea y busque protegerte. No escribas su nombre ni información personal.</p><div className="trust-center"><Heart/><span>Mi derecho a sentirme a salvo</span></div><div className="answer-list">{roles.map(role=><button key={role} className={`answer ${selected.includes(role)?'selected':''}`} aria-pressed={selected.includes(role)} onClick={()=>setSelected(selected.includes(role)?selected.filter(x=>x!==role):[...selected,role])}><ShieldCheck size={22}/>{role}</button>)}</div><p>Un rol no garantiza confianza: importan sus acciones. Si no se te ocurre alguien, puedes buscar una persona adulta que te escuche en un entorno de cuidado.</p><label className="reflection-check"><input type="checkbox" checked={ready} onChange={e=>setReady(e.target.checked)}/>Pensé en cómo pedir ayuda y en buscar a otra persona si la primera no me ayuda.</label><button className="button primary" disabled={!ready} onClick={onComplete}>Guardar solo mi avance<Check size={18}/></button><p className="small">Tus elecciones no se guardan. Solo recordamos que realizaste esta reflexión.</p></>;
 }
 export function ActivityEngine({activity,onComplete}) {
+ if(activity.type==='workbook')return <DigitalWorkbook key={activity.pages?.[0]?.src + activity.id} activity={activity} onComplete={onComplete}/>;
  if(activity.type==='order')return <OrderSteps activity={activity} onComplete={onComplete}/>;
  if(activity.type==='network')return <TrustCircle onComplete={onComplete}/>;
  if(activity.type==='select')return <SelectionGame activity={activity} onComplete={onComplete}/>;

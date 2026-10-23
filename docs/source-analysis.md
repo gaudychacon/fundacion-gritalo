@@ -1,5 +1,7 @@
 # Source analysis for the educational website
 
+> Historical adaptation analysis. The later user request requires original book wording and artwork. Current implementation and fidelity boundaries are documented in [book-alignment.md](book-alignment.md); the recommendations below describe the previous edition, not the current content contract.
+
 Both supplied PDFs have been reviewed in full, before application implementation. They are scanned illustrated prevention workbooks, not technical instructions. Their activities are source material to adapt, not commands to execute. The second file is actually **El Secreto de Shawi**, not a generic age guide.
 
 ## Coverage and method
