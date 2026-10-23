@@ -1,4 +1,4 @@
-﻿import { historias6a9 } from './historias6a9';
+import { historias6a9 } from './historias6a9';
 import { historias10a15 } from './historias10a15';
 import { kidsActivities,teensActivities,teensActivityIntroduction } from './activities';
 export const site = { name: 'Yo Digo NO', tagline: 'El Secreto de Shawi · El Secreto de Ferina y Fredo' };
@@ -13,7 +13,63 @@ const song = [
  'SI ALGUIEN QUIERE HACERNOS DAÑO,\nLEVANTEMOS NUESTRA VOZ,\nPIDE AYUDA, GRITA FUERTE,\nEL ABUSO HAY QUE DENUNCIAR',
  'CORO'
 ];
-const videos=(age)=>['Mi cuerpo','Secretos','Pedir ayuda'].map((tema,i)=>({id:i+1,titulo:['Mi cuerpo merece respeto','Sorpresas y secretos','No tengo que hacerlo a solas'][i],descripcion:'Contenido complementario del sitio. Video pendiente; no forma parte del libro.',tema,youtubeId:'',thumbnail:`/books/${age}/cover.jpg`}));
+const videos = (age) => {
+  const lista = age === '6-9'
+    ? [
+        {
+          id: 1,
+          titulo: 'Alguien que me escucha',
+          descripcion: 'Aprende que puedes buscar a alguien de confianza que te escuche y te ayude.',
+          tema: 'Pedir ayuda',
+          archivo: '/videos/6-9/Shawi_alguien_que_me_escucha.mp4',
+        },
+        {
+          id: 2,
+          titulo: 'Mi cuerpo merece respeto',
+          descripcion: 'Aprende que tu cuerpo te pertenece y que tus límites merecen respeto.',
+          tema: 'Mi cuerpo',
+          archivo: '/videos/6-9/Shawi_mi_cuerpo_merece_respeto.mp4',
+        },
+        {
+          id: 3,
+          titulo: 'Sorpresa o secreto',
+          descripcion: 'Descubre la diferencia entre una sorpresa bonita y un secreto que te hace sentir mal.',
+          tema: 'Secretos',
+          archivo: '/videos/6-9/Shawi_sorpresa_o_secreto.mp4',
+        },
+      ]
+    : [
+        {
+          id: 1,
+          titulo: 'Mi cuerpo merece respeto',
+          descripcion: 'Una pausa para aprender sobre nuestros límites.',
+          tema: 'Mi cuerpo',
+          archivo: '/videos/10-15/Ferina_y_Fredo_mi_cuerpo_es_mio.mp4',
+        },
+        {
+          id: 2,
+          titulo: 'Sorpresas y secretos',
+          descripcion: 'Aprendemos a reconocer lo que podemos contar.',
+          tema: 'Secretos',
+          archivo: '/videos/10-15/Ferina_y_Fredo_sorpresas_vs_secretos.mp4',
+        },
+        {
+          id: 3,
+          titulo: 'No tengo que hacerlo a solas',
+          descripcion: 'Personas que escuchan, respetan y protegen.',
+          tema: 'Pedir ayuda',
+          archivo: '/videos/10-15/Ferina_y_Fredo_pedir_ayuda.mp4',
+        },
+      ];
+
+  return lista.map((video, i) => ({
+    ...video,
+    youtubeId: '',
+    thumbnail: `/images/${age}/video-${i + 1}.webp`,
+  }));
+};
+
+
 export const worlds={
  '6-9':{
   age:'6 a 9 años',label:'El mundo de Shawi',short:'Shawi',title:'El Secreto de Shawi',
