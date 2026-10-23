@@ -1,0 +1,105 @@
+﻿IMÁGENES PARA FUNDACIÓN GRÍTALO
+
+Total: 21 imágenes. Actualmente faltan las 21.
+Guardar en public/images/ en formato WebP, respetando los nombres exactos.
+Las escenas siguientes son sugerencias coherentes con el contenido actual.
+
+1. PRINCIPAL Y PORTADAS (3)
+Rutas relativas a public/images/:
+
+hero-principal.webp
+Niños y adolescentes diversos en un ambiente alegre de aprendizaje, cuidado y confianza.
+
+6-9/personajes/portada.webp
+Presentación de Shawi, con apariencia amigable y estilo infantil.
+
+10-15/personajes/portada.webp
+Ferina y Fredo juntos, con una estética juvenil.
+
+Las portadas se reutilizan en la página principal y dentro de cada mundo. No se necesitan versiones duplicadas.
+
+2. HISTORIA DE SHAWI (6)
+Carpeta: public/images/6-9/historias/
+
+capitulo-01.webp
+Shawi y su prima Aledis ordenando su habitación.
+
+capitulo-02.webp
+Shawi notando que Aledis está callada y triste en la escuela.
+
+capitulo-03.webp
+Shawi reconociendo sus emociones; representar preocupación de forma suave y simbólica.
+
+capitulo-04.webp
+Shawi preocupado por un secreto; una nube simbólica puede representar ese peso.
+
+capitulo-05.webp
+Shawi y Aledis conversando y escuchándose durante una comida familiar.
+
+capitulo-06.webp
+Representación simbólica de buscar apoyo en una persona adulta que escucha y respeta.
+
+3. HISTORIA DE FERINA Y FREDO (6)
+Carpeta: public/images/10-15/historias/
+
+capitulo-01.webp
+Ferina pensativa y preocupada durante su cumpleaños.
+
+capitulo-02.webp
+Ferina y Fredo con una representación simbólica de su espacio personal y sus límites.
+
+capitulo-03.webp
+Ferina frente a sus cuadernos, con dificultad para concentrarse.
+
+capitulo-04.webp
+Una profesora acercándose a Ferina con amabilidad y disposición para escucharla.
+
+capitulo-05.webp
+Ferina y Fredo acompañándose mientras piensan cómo pedir ayuda.
+
+capitulo-06.webp
+Una representación conceptual de una ruta hacia personas adultas protectoras.
+
+IMPORTANTE: Los capítulos finales no narran un rescate resuelto. Las imágenes deben representar la búsqueda de apoyo, no inventar un desenlace.
+
+4. MINIATURAS DE VIDEOS (6)
+Rutas relativas a public/images/:
+
+6-9/video-1.webp
+Shawi: mi cuerpo merece respeto.
+
+6-9/video-2.webp
+Shawi: diferencia entre una sorpresa agradable y un secreto que preocupa.
+
+6-9/video-3.webp
+Shawi: una persona adulta escuchando y ofreciendo apoyo.
+
+10-15/video-1.webp
+Ferina y Fredo: autonomía corporal y límites personales.
+
+10-15/video-2.webp
+Ferina y Fredo: sorpresas frente a secretos dañinos.
+
+10-15/video-3.webp
+Ferina y Fredo: pedir ayuda y encontrar apoyo.
+
+Aunque los videos todavía estén pendientes, sus tarjetas ya utilizan imágenes.
+
+INDICACIONES PARA GENERARLAS
+
+- Estilo: ilustración 2D consistente; más infantil para Shawi y más juvenil para Ferina y Fredo.
+- Personajes: conservar rostro, cabello, ropa y colores entre imágenes.
+- Composición: personajes y elementos importantes centrados, con margen alrededor. El sitio recorta las imágenes según el tamaño de pantalla.
+- Sin texto incorporado: los títulos ya aparecen en la interfaz.
+- Seguridad: personajes vestidos, sin escenas explícitas, desnudez ni representaciones intimidantes de abuso.
+
+TAMAÑOS SUGERIDOS (NO OBLIGATORIOS)
+
+- Principal y miniaturas: 1536 x 1024 px.
+- Portadas: 1024 x 1024 px.
+- Capítulos: 1792 x 1024 px.
+
+RESUMEN
+
+1 principal + 2 portadas + 12 capítulos + 6 miniaturas = 21 imágenes.
+Las actividades, los iconos y la carpeta public/images/home/ no requieren imágenes adicionales en la versión actual.
